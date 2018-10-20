@@ -1590,22 +1590,6 @@ def train(epoch, model, optimizer, features, adj, idx_train, labels, idx_val, cr
           'auc_val: {:.4f}'.format(acc_val.item()),
           'time: {:.4f}s'.format(time.time() - t))
 
-def read_dislncrf(inputfile):
-    dis_mir_score = {}
-    head = True
-    with open(inputfile, 'r') as fp:
-        for line in fp:
-            if head:
-                mirnas = line.rstrip().split()[1:]
-                head = False
-                continue
-            values = line.rstrip().split()
-            disease = values[0]
-            scores = values[1:]
-            for mir, score in zip(mirnas, scores):
-                dis_mir_score[(disease, mir)] = float(score)
-    return dis_mir_score
-
 def read_mirpd(inputfile):
     mirna_ensg_name = read_gencode_mirna_annotation_new()
     dis_mir_score = {}
