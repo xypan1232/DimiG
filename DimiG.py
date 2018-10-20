@@ -1675,12 +1675,6 @@ def calculate_auc(output, all_dis, new_mirna_disease, disease_miRNA_list):
             i = mirna_dict[mirna]
             probs.append(output[i, j])
 
-    fw = open('results', 'w')
-    fw.write('\t'.join(map(str, labels)))
-    fw.write('\n')
-    fw.write('\t'.join(map(str, probs)))
-    fw.write('\n')
-    fw.close()
     Figure = plt.figure()
     # pdb.set_trace()
     auc, auprc = plot_roc_curve_miRNA(labels, probs, 'DismiG')
