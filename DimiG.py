@@ -1661,7 +1661,7 @@ def calculate_auc(output, all_dis, new_mirna_disease, disease_miRNA_list):
 
     Figure = plt.figure()
     # pdb.set_trace()
-    auc, auprc = plot_roc_curve_miRNA(labels, probs, 'DismiG')
+    auc = plot_roc_curve_miRNA(labels, probs, 'DismiG')
     plt.plot([0, 1], [0, 1], 'k--')
     plt.xlim([0, 1])
     plt.ylim([0, 1])
@@ -1671,7 +1671,7 @@ def calculate_auc(output, all_dis, new_mirna_disease, disease_miRNA_list):
     plt.legend(loc="lower right")
     # plt.savefig(save_fig_dir + selected + '_' + class_type + '.png')
     plt.show()
-    return auc, auprc
+    return auc
 
 def test(model, features, adj, labels, idx_test, all_dis, new_mirna_disease, disease_miRNA_list, criteria = None):
     model.eval()
@@ -1679,11 +1679,11 @@ def test(model, features, adj, labels, idx_test, all_dis, new_mirna_disease, dis
     #pdb.set_trace()
     #loss_test = F.binary_cross_entropy(output[idx_test], labels[idx_test])
     loss_test = criteria(output[idx_test], labels[idx_test])
-    auc_test, auprc = calculate_auc(1 - output[idx_test].data.cpu().numpy(), all_dis, new_mirna_disease, disease_miRNA_list)
+    auc_test = calculate_auc(1 - output[idx_test].data.cpu().numpy(), all_dis, new_mirna_disease, disease_miRNA_list)
 
     print("Test set results:",
           "loss= {:.4f}".format(loss_test.item()))
-    print auc_test, auprc
+    print auc_test
 
 def run_gcn():
     adj, features, labels, idx_train, idx_val, idx_test, all_dis, new_mirna_disease, disease_miRNA_data = read_expression_data('data/GTEx_Analysis_v6p_RNA-seq_RNA-SeQCv1.1.8_gene_median_rpkm.gct.gz', data = 3)
