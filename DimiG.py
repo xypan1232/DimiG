@@ -1507,7 +1507,6 @@ def read_expression_data(input_file, data = 3):
     #pdb.set_trace()
     adj = sp.csr_matrix(adj)
     adj =adj + sp.eye(adj.shape[0])
-    #adj = normalize(adj + sp.eye(adj.shape[0], adj.shape[1]))
     adj = sparse_mx_to_torch_sparse_tensor(adj)
 
     labels = np.array(labels)
