@@ -1333,40 +1333,13 @@ def read_expression_data(input_file, data = 3):
     #disease_lncRNA_data, lncRNAlabels, lncRNA_list, atmp = get_mRNA_lncRNA_expression_RNAseq_data(whole_data,
     #                                                                                              gene_type_dict=gene_type_dict,
     #                                                                                              mRNA=False)
-    '''
-    mirna_name_dict = read_mirbase_id()
-    mirna_gencode_id = read_gencode_mirna_annotation()
 
-    mirbase_keys = set(mirna_name_dict.keys())
-    genecode_keys = set(mirna_gencode_id.keys())
-    overlap_keys = mirbase_keys & genecode_keys
-    print len(overlap_keys)
-    #map mirna ensg to mirna name
-    mirna_ensg_name = {}
-    for key in overlap_keys:
-        mirna_ensg_name[mirna_name_dict[key]] = mirna_gencode_id[key]
-    '''
     mirna_ensg_name = read_gencode_mirna_annotation_new()
-    minum =0
-    for mir0 in mirna_ensg_name.keys():
-        if 'mir' in mir0:
-            minum = minum + 1
-    print minum
     #pdb.set_trace()
     string_interaction, all_genes = read_string_interaction()
     rain_interaction, genes, mirnas = read_ncrna_interaction()
     #pdb.set_trace()
     new_set_mirnas = set(mirna_ensg_name.keys()) & mirnas
-    #print len(new_set_mirnas)
-    #mirna expression profile
-    #disease_miRNA_data = set()
-    #for key in new_set_mirnas:
-    #    mirna_id = mirna_ensg_name[key]
-    #    disease_miRNA_data.add(mirna_id)
-
-    #print len(disease_miRNA_data)
-    #pdb.set_trace()
-    #all_genes = all_genes & genes
 
     #mRNA labels
     all_other_disease_mRNA = set()
@@ -1461,8 +1434,7 @@ def read_expression_data(input_file, data = 3):
     labels = []
     all_dis = list(all_dis)
     print 'disease', len(all_dis)
-    #fw = open('labels.csv', 'w')
-    #pdb.set_trace()
+
     for gene in all_exports:
         init_labels = np.array([0] * len(all_dis))
         if gene in mrna_diseases:
@@ -1480,10 +1452,6 @@ def read_expression_data(input_file, data = 3):
         init_labels[inds] = 1
         labels.append(init_labels)
 
-        #fw.write('\t'.join(map(str, init_labels)))
-        #fw.write('\n')
-    #pdb.set_trace()
-    #fw.close()
     all_index = range(gene_len)
     idx_train_val = all_index[:all_mrna_len]
     random.shuffle(idx_train_val)
@@ -1494,12 +1462,9 @@ def read_expression_data(input_file, data = 3):
 
     idx_test = all_index[all_mrna_len:]
 
-    #features = sp.eye(adj.shape[0])
-    #pdb.set_trace()
 
     features = preprocess_data_tissue(np.array(features))
     features, scaler = preprocess_data(features)
-    #features = np.concatenate((features1.todense(), features), axis =1)
     features = sp.csr_matrix(features, dtype=np.float32)
     features = normalize(features)
 
@@ -1510,15 +1475,6 @@ def read_expression_data(input_file, data = 3):
     adj = sparse_mx_to_torch_sparse_tensor(adj)
 
     labels = np.array(labels)
-    #labels = np.where(labels)[1]
-    #col_ind = np.sum(labels, axis= 0) > 30
-    #pdb.set_trace()
-    #labels = labels[:, col_ind]
-    #temp_dis = []
-    #for ind, dis in enumerate(all_dis):
-    #    if col_ind[ind]:
-    #        temp_dis.append(dis)
-    #all_dis = temp_dis
 
     return adj, torch.FloatTensor(features), torch.FloatTensor(labels), torch.LongTensor(np.array(idx_train)), \
            torch.LongTensor(np.array(idx_val)), torch.LongTensor(np.array(idx_test)), all_dis, new_mirna_disease, disease_miRNA_data
@@ -1564,7 +1520,6 @@ def train(epoch, model, optimizer, features, adj, idx_train, labels, idx_val, cr
     optimizer.zero_grad()
     output = model(features, adj)
     #pdb.set_trace()
-    #loss_train = F.binary_cross_entropy(output[idx_train], labels[idx_train])
     loss_train = criteria(output[idx_train], labels[idx_train])
 
     acc_train = accuracy_mutli(labels[idx_train], output[idx_train])
@@ -1580,7 +1535,7 @@ def train(epoch, model, optimizer, features, adj, idx_train, labels, idx_val, cr
         model.eval()
         output = model(features, adj)
     #pdb.set_trace()
-    loss_val = criteria(output[idx_val], labels[idx_val]) #F.binary_cross_entropy(output[idx_val], labels[idx_val])
+    loss_val = criteria(output[idx_val], labels[idx_val])
     acc_val = accuracy_mutli(labels[idx_val], output[idx_val])
     print('Epoch: {:04d}'.format(epoch + 1),
           'loss_train: {:.4f}'.format(loss_train.item()),
@@ -1676,7 +1631,6 @@ def test(model, features, adj, labels, idx_test, all_dis, new_mirna_disease, dis
     model.eval()
     output = model(features, adj)
     #pdb.set_trace()
-    #loss_test = F.binary_cross_entropy(output[idx_test], labels[idx_test])
     loss_test = criteria(output[idx_test], labels[idx_test])
     auc_test = calculate_auc(1 - output[idx_test].data.cpu().numpy(), all_dis, new_mirna_disease, disease_miRNA_list)
 
