@@ -31,6 +31,9 @@ Here we modified the orginal GCN (https://github.com/tkipf/pygcn) to support mul
 1. To run the demo code, some big file needs be downloaded from other website: <br>
    - "9606.protein.links.v10.txt.gz" can be downloaded from <a href="https://string-db.org/">STRING</a> v10 database. <br>
    - "human_disease_integrated_full.tsv" can be downloaded from <a href="https://diseases.jensenlab.org/Downloads">DISEASES </a> database, it should be noted it is biweekly updated, maybe a little different from the data we used. <br>
+the above two files need be saved at dir "data/". <br> 
 
 2. You can directly  get the prediction and give the ROC curve by running: <br>
-``` run python DimiG.py```
+``` run python DimiG.py``` <br>
+
+ It takes < 30 minutes to run.
