@@ -35,6 +35,6 @@ Here we modified the orginal GCN (https://github.com/tkipf/pygcn) to support mul
    - The above three files need be saved at dir "data/". <br> 
 
 2. You can directly  get the prediction and give the ROC curve by running: <br>
-``` run python DimiG.py``` <br>
+``` python DimiG.py``` <br>
 
  It takes < 30 minutes to run.
