@@ -20,7 +20,7 @@ Linux: Ubuntu 16.04
 ## Package dependencies
   * <a href=https://github.com/scikit-learn/scikit-learn>sklearn</a> <br>
   * GCN
-  * <a href=https://pytorch.org/>sklearn</a> <br>PyTorch 0.4 or 0.5</a> <br>
+  * <a href=https://pytorch.org/>PyTorch 0.4 or 0.5</a> <br>
   * Python 2.7
 
 ## Installation of GCN
