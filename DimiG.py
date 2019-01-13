@@ -1539,9 +1539,7 @@ def train(epoch, model, optimizer, features, adj, idx_train, labels, idx_val, cr
     acc_val = accuracy_mutli(labels[idx_val], output[idx_val])
     print('Epoch: {:04d}'.format(epoch + 1),
           'loss_train: {:.4f}'.format(loss_train.item()),
-          'auc_train: {:.4f}'.format(acc_train.item()),
           'loss_val: {:.4f}'.format(loss_val.item()),
-          'auc_val: {:.4f}'.format(acc_val.item()),
           'time: {:.4f}s'.format(time.time() - t))
 
 def read_mirpd(inputfile):
