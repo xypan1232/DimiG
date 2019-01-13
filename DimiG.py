@@ -1522,8 +1522,6 @@ def train(epoch, model, optimizer, features, adj, idx_train, labels, idx_val, cr
     #pdb.set_trace()
     loss_train = criteria(output[idx_train], labels[idx_train])
 
-    acc_train = accuracy_mutli(labels[idx_train], output[idx_train])
-
     loss_train.backward()
     optimizer.step()
 
@@ -1536,7 +1534,6 @@ def train(epoch, model, optimizer, features, adj, idx_train, labels, idx_val, cr
         output = model(features, adj)
     #pdb.set_trace()
     loss_val = criteria(output[idx_val], labels[idx_val])
-    acc_val = accuracy_mutli(labels[idx_val], output[idx_val])
     print('Epoch: {:04d}'.format(epoch + 1),
           'loss_train: {:.4f}'.format(loss_train.item()),
           'loss_val: {:.4f}'.format(loss_val.item()),
