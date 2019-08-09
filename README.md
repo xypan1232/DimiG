@@ -30,7 +30,7 @@ Here we modified the orginal GCN (https://github.com/tkipf/pygcn) to support mul
 # Demo
 1. To run the demo code, some big file needs be downloaded from other website: <br>
    - PCG-PCG interaction file "9606.protein.links.v10.txt.gz" can be downloaded from <a href="https://string-db.org/">STRING</a> v10 database. <br>
-   - Disease-PCG assications file "human_disease_integrated_full.tsv" can be downloaded from <a href="https://diseases.jensenlab.org/Downloads">DISEASES </a> database, it should be noted it is biweekly updated, maybe a little different from the data we used. <br>
+   - Disease-PCG assications file "human_disease_integrated_full.tsv" can be downloaded from <a href="https://diseases.jensenlab.org/Downloads">DISEASES </a> database. We also upload the file human_disease_integrated_full.zip in this repository, please decompress it at directory data/.  <br>
    - PCG-miRNA interaction file "9606.v1.combined.tsv.gz" can be downloaded from <a href="https://rth.dk/resources/rain/">RAIN</a> v1.0 database. <br>
    - The above three files need be saved at dir "data/". <br> 
 
