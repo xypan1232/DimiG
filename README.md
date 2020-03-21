@@ -37,4 +37,4 @@ Here we modified the orginal GCN (https://github.com/tkipf/pygcn) to support mul
 2. You can directly  get the prediction and give the ROC curve by running: <br>
 ``` python DimiG.py``` <br>
 
-It will output training and validaiton loss. In total, It takes < 30 minutes to run.
+It will output training and validaiton loss. In total, It takes < 20 minutes to run.
